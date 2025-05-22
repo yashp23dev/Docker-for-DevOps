@@ -1,0 +1,14 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+WORKDIR /app
+
+ARG APP_VERSION
+ENV APP_VERSION=${APP_VERSION}
+
+
+ENV ENVIRONMENT=production
+
+COPY . .
+
+CMD ["python","app.py"]
