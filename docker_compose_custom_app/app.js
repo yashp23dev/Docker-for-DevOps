@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { exec } = require('child_process')
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const PORT = 3000
@@ -14,6 +15,21 @@ db.once('open', () => {
     console.log('Connected to MongoDB');
 });
 
+const startContainersLimiter = rateLimit({
+    windowMs: 5 * 60 * 1000,
+    max: 2,
+    message: 'Too many attempts to start containers. Try again later ...!!',
+    standardHeaders: true,
+    legacyheaders: false,
+});
+
+const checkContainersLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000,
+    max: 5,
+    message: 'To many checks in a short time. Please slow down....#',
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 const startContainers = () => {
 
@@ -30,7 +46,7 @@ const startContainers = () => {
 
 
 //Express route to start containers 
-app.get('/start-containers', (req, res) => {
+app.get('/start-containers', startContainersLimiter, (req, res) => {
     
     startContainers();
     res.send('Containers are starting...');
@@ -39,7 +55,7 @@ app.get('/start-containers', (req, res) => {
 
 
 //Express route to check if containers are running
-app.get('/check-containers', (req, res) => {
+app.get('/check-containers', checkContainersLimiter, (req, res) => {
    exec('docker ps', (error, stdout, stderr) => {
      if(error){
        console.error(`Error checking containers: ${error.message}`);
