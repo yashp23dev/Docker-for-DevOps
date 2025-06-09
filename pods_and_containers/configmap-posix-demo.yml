@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: configmap-posix-demo
+
+spec:
+  containers:
+    - name: configmap-posix
+      image: yashpatil23/web_app:1.0
+      ports:
+        - containerPort: 8080
+      envFrom:
+        - configMapRef:
+                name: player-posix-demo

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   name: configmap-vol-demo
+spec:
+  containers:
+    - name: configmap-vol-demo
+      image: alpine
+      command: ["sleep","3600"]
+      volumeMounts:
+      - name: player-map
+        mountPath: /etc/config/configMap
+      - name: player-secret
+        mountPath: /etc/config/secret
+  volumes:
+    - name: player-map
+      configMap:
+         name: player-pro-demo
+    - name: player-secret
+      secret:
+         secretName: example-secret
