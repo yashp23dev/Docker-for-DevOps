@@ -10,7 +10,7 @@ This repository provides a collection of Docker configurations and resources tai
 - [Directory Structure](#directory-structure)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
+
 
 ## Introduction
 
@@ -30,13 +30,13 @@ To get started with Docker for DevOps, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yashp23dev/Docker_for_DevOps.git
+   git clone https://github.com/yashp23dev/Docker-for-DevOps.git
    ```
 
 2. Navigate to the repository directory:
 
    ```bash
-   cd Docker_for_DevOps
+   cd Docker-for-DevOps
    ```
 
 3. Explore the provided Docker configurations, sample Dockerfiles, and resources tailored for DevOps.
